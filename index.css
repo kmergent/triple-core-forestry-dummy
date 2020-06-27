@@ -1,0 +1,98 @@
+@font-face {
+    font-family: "Mukta2";
+    src: url("/fonts/Mukta/Mukta-Light.ttf");
+    font-weight: light;
+    font-style: normal;
+    font-display: swap;
+  }
+
+@font-face {
+  font-family: "Mukta";
+  src: url("/fonts/Mukta/Mukta-Regular.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+    font-family: "Mukta";
+    src: url("/fonts/Mukta/Mukta-SemiBold.ttf") format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+@font-face {
+    font-family: "Mukta";
+    src: url("/fonts/Mukta/Mukta-ExtraBold.ttf") format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+body {
+  --main-color-bg: #EBEBEB;
+  --main-color-text: #111;
+
+  font-family: "Mukta", sans-serif;
+  font-size: 16px;
+  margin: 10px;
+  background: var(--main-color-bg);
+  color: var(--main-color-text);
+  line-height: 1.6em;
+}
+
+h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.75rem;
+}
+
+h2 {
+    font-size: 1.37rem;
+    margin-bottom: 1.1rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.7rem;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: .5em;
+}
+
+p + h2 {
+  margin-top: 1.75em;
+}
+
+p + h2 {
+  margin-top: 1.1em;
+}
+
+p + p {
+  margin-top: .5em;
+}
+
+em {
+  font-style: normal;
+  font-weight: 300;
+  opacity: 0.5;
+}
+
+strong, b {
+  font-weight: 800;
+}
+
+small {
+  font-size: 0.85rem;
+  opacity: 0.5;
+}
+
+hr {
+  border-width: 0 0 2px 0;
+  border-style: solid;
+  margin: 1rem 0;
+  opacity: 0.5;
+  color: var(--main-color-text);
+}
