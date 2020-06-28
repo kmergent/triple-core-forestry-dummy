@@ -12,6 +12,7 @@ export default function Home() {
       
       <main>
         <Button text="foo"/>
+        <span className="icon-alert-triangle"></span>
       </main>
 
       <footer>
