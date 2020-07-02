@@ -1,5 +1,6 @@
 export const Colors = {
     text: '#111',
+    transparentize: 0.5,
     background: '#EBEBEB',
     lightBackground: '#fff',
     primary: {

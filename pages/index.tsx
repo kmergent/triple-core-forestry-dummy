@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Button from '../components/Button';
+import Textarea from '../components/Form/Textarea';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <main>
         <Button text="foo"/>
         <span className="icon-alert-triangle"></span>
+        <Textarea value="" onChange={() => void 0}></Textarea>
       </main>
 
       <footer>

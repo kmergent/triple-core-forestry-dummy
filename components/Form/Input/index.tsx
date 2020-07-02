@@ -1,12 +1,10 @@
 import * as React from "react";
 import { useState } from "react";
-import { Colors } from "../../constants/design-tokens";
-import Icon from "../Icon";
+import { InputStatus } from "../FormElement.model";
+import Icon from "../../Icon";
+import { Colors } from "../../../constants/design-tokens";
+import { FormElementInputStyles } from "../FormElement.shared.css";
 
-export enum InputStatus {
-  "VALID" = "check",
-  "ERROR" = "alert-triangle",
-}
 
 interface Props {
   type: string;
@@ -52,34 +50,7 @@ const Input: React.FC<Props> = ({
         <></>
       )}
       <style jsx>{`
-        .Input {
-          font-family: inherit;
-          font-size: 1rem;
-          line-height: 1.2;
-          background: transparent;
-          padding: 6px ${status ? 'calc(1.1rem + 12px)' : '7px'} 4px 7px;
-          width: 100%;
-          max-width: 80vw;
-          border-width: 0 0 2px 0;
-          border-style: solid;
-          border-color: ${Colors.primary.default};
-          caret-color: ${Colors.primary.default};
-        }
-        .Input::placeholder {
-          font-weight: 400;
-          color: ${Colors.inactive};
-        }
-        .Input:focus {
-          outline: 0;
-          border-width: 2px;
-          padding: 4px ${status ? 'calc(1.1rem + 10px)' : '7px'} 4px 5px;
-          background: ${Colors.lightBackground};
-        }
-        .Input:disabled {
-          cursor: default;
-          border-bottom-color: ${Colors.inactive};
-        }
-
+        ${FormElementInputStyles}
         .Input-Icon {
           display: inline-block;
           margin-left: -7px;
