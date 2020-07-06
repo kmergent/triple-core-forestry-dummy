@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import { InputStatus } from "../FormElement.model";
 import Icon from "../../Icon";
 import { Colors } from "../../../constants/design-tokens";
@@ -9,10 +8,13 @@ import { FormElementInputStyles } from "../FormElement.shared.css";
 interface Props {
   type: string;
   value: string | number;
+  name?: string; 
   placeholder?: string;
   disabled?: boolean;
   status?: InputStatus;
-  onChange: (value: string | number) => void;
+  required?: boolean;
+  maxLength?: number;
+  onChange: (value: string | number, name?: string) => void;
 }
 
 const Input: React.FC<Props> = ({
@@ -20,15 +22,16 @@ const Input: React.FC<Props> = ({
   value,
   onChange,
   status,
+  name = "",
   placeholder = "",
+  required = false,
   disabled = false,
+  maxLength = 50
 }) => {
-  const [currentValue, setCurrentValue] = useState(value);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const updatedValue = e.currentTarget.value;
-    setCurrentValue(updatedValue);
-    onChange(updatedValue);
+    onChange(updatedValue, name);
   };
 
 
@@ -37,10 +40,12 @@ const Input: React.FC<Props> = ({
       <input
         className={"Input"}
         type={type}
-        value={currentValue}
+        value={value}
         placeholder={placeholder}
         onChange={handleChange}
         disabled={disabled}
+        maxLength={maxLength}
+        required={required}
       />
       {status ? (
         <span className="Input-Icon">

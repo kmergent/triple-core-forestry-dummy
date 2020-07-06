@@ -1,29 +1,30 @@
 import * as React from "react";
-import { useState } from "react";
 import { Colors } from "../../../constants/design-tokens";
 import Icon from "../../Icon";
 import { FormElementBoxStyles } from "../FormElement.shared.css";
 import classNames from "classnames";
 
 interface Props {
-  checked: boolean;
+  checked?: boolean;
+  name?: string;
   label?: string;
   disabled?: boolean;
-  onChange: (value: boolean) => void;
+  required?: boolean;
+  onChange: (value: boolean, name?: string) => void;
 }
 
 const Checkbox: React.FC<Props> = ({
-  checked,
+  checked = false,
   label = "",
+  name = "",
   disabled = false,
+  required = false,
   onChange,
 }) => {
-  const [isChecked, setIsChecked] = useState(checked);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const updatedValue = e.currentTarget.checked;
-    setIsChecked(updatedValue);
-    onChange(updatedValue);
+    onChange(updatedValue, name);
   };
 
   return (
@@ -31,14 +32,15 @@ const Checkbox: React.FC<Props> = ({
       className={classNames("Checkbox", disabled ? "Checkbox--disabled" : "")}
     >
       <span className="Checkbox-box">
-        {isChecked ? <Icon name="check" color={Colors.primary.default} /> : ""}
+        {checked ? <Icon name="check" color={Colors.primary.default} /> : ""}
       </span>
       <span>{label}</span>
       <input
         type="checkbox"
         onChange={handleChange}
         disabled={disabled}
-        checked={isChecked}
+        checked={checked}
+        required={required}
       />
       <style jsx>{`
         ${FormElementBoxStyles}

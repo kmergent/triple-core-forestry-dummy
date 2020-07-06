@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import { Colors } from "../../../constants/design-tokens";
 import Icon from "../../Icon";
 import { InputStatus } from "../FormElement.model";
@@ -8,41 +7,45 @@ import { FormElementInputStyles } from "../FormElement.shared.css";
 
 interface Props {
   value: string | number;
+  name?: string;
   placeholder?: string;
   disabled?: boolean;
   status?: InputStatus;
   rows?: number;
   resize?: boolean;
   autoHeight?: boolean;
-  onChange: (value: string | number) => void;
+  required?: boolean;
+  maxLength?: number;
+  onChange: (value: string | number, name?: string) => void;
 }
 
 const Textarea: React.FC<Props> = ({
   value,
   onChange,
   status,
+  name = "",
   placeholder = "",
   rows = 3,
   disabled = false,
   resize = true,
+  required = false,
+  maxLength = 140,
   autoHeight = false,
 }) => {
-  const [currentValue, setCurrentValue] = useState(value);
 
   let textareaRef: HTMLTextAreaElement | null;
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     const updatedValue = e.currentTarget.value;
-    setCurrentValue(updatedValue);
-    onChange(updatedValue);
+    onChange(updatedValue, name);
   };
 
 
   React.useEffect(() => {
-    if (currentValue && autoHeight && textareaRef) {
+    if (value && autoHeight && textareaRef) {
       textareaRef.style.height = `0px`;
       textareaRef.style.height = `${textareaRef.scrollHeight + 4}px`;
     }
-  }, [currentValue])
+  }, [value])
 
   return (
     <>
@@ -53,11 +56,13 @@ const Textarea: React.FC<Props> = ({
           resize ? "" : "disabled-resize",
           autoHeight ? "autoHeight" : ""
         )}
-        value={currentValue}
+        value={value}
         placeholder={placeholder}
         onChange={handleChange}
         rows={autoHeight ? 1 : rows}
         disabled={disabled}
+        maxLength={maxLength}
+        required={required}
       />
       {status ? (
         <span className="Textarea-Icon">

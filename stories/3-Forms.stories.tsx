@@ -1,11 +1,18 @@
 import * as React from "react";
-import { withKnobs, text, boolean, radios, number } from "@storybook/addon-knobs";
+import {
+  withKnobs,
+  text,
+  boolean,
+  radios,
+  number,
+} from "@storybook/addon-knobs";
 
 import Input from "../components/Form/Input";
 import Textarea from "../components/Form/Textarea";
 import Checkbox from "../components/Form/Checkbox";
 import RadioButton from "../components/Form/RadioButton";
 import { InputStatus } from "../components/Form/FormElement.model";
+import Form from "../components/Form";
 
 export default {
   component: Input,
@@ -20,88 +27,135 @@ const defaultValues = {
   status: undefined,
   textareaRows: 3,
   resize: false,
-  autoHeight: false
+  autoHeight: false,
 };
 
 const statusOptions = {
-    valid: InputStatus.VALID,
-    error: InputStatus.ERROR,
-    none: undefined,
-  };
+  valid: InputStatus.VALID,
+  error: InputStatus.ERROR,
+  none: undefined,
+};
 
-const getPlaceholderValue = () => text("Placeholder", defaultValues.placeholder, "");
+const getPlaceholderValue = () =>
+  text("Placeholder", defaultValues.placeholder, "");
 const getLabelValue = () => text("Label", defaultValues.label, "");
 const getDisabledValue = () => boolean("Disabled", defaultValues.disabled, "");
-const getStatus = () => radios("Status", statusOptions, defaultValues.status, "");
-const getTextareaRows = () => number("Rows", defaultValues.textareaRows, {}, "");
+const getStatus = () =>
+  radios("Status", statusOptions, defaultValues.status, "");
+const getTextareaRows = () =>
+  number("Rows", defaultValues.textareaRows, {}, "");
 const getResizeValue = () => boolean("Resize", defaultValues.resize, "");
-const getAutoHeightValue = () => boolean("Auto Height", defaultValues.autoHeight, "");
+const getAutoHeightValue = () =>
+  boolean("Auto Height", defaultValues.autoHeight, "");
 
-const onChange = () => void 0;
+export const TextInput = () => {
+  const [value, setValue] = React.useState("");
+  return (
+    <>
+      <h3>Text Input</h3>
+      <Input
+        type="text"
+        value={value}
+        placeholder={getPlaceholderValue()}
+        disabled={getDisabledValue()}
+        status={getStatus()}
+        onChange={(value: string) => setValue(value)}
+      />
+    </>
+  );
+};
 
-export const TextInput = () => (
-  <>
-    <h3>Text Input</h3>
-    <Input
-      type="text"
-      value=""
-      placeholder={getPlaceholderValue()}
-      disabled={getDisabledValue()}
-      onChange={onChange}
-      status={getStatus()}
-    />
-  </>
-);
-export const NumberInput = () => (
-  <>
-    <h3>Numeric Input</h3>
-    <Input
-      type="number"
-      value=""
-      placeholder={getPlaceholderValue()}
-      disabled={getDisabledValue()}
-      onChange={onChange}
-      status={getStatus()}
-    />
-  </>
-);
-export const TextField = () => (
-  <>
-    <h3>Text Field</h3>
-    <Textarea
-      value=""
-      placeholder={getPlaceholderValue()}
-      rows={getTextareaRows()}
-      disabled={getDisabledValue()}
-      resize={getResizeValue()}
-      autoHeight={getAutoHeightValue()}
-      status={getStatus()}
-      onChange={onChange}
-    />
-  </>
-);
+export const NumberInput = () => {
+  const [value, setValue] = React.useState(0);
+  return (
+    <>
+      <h3>Numeric Input</h3>
+      <Input
+        type="number"
+        value={value}
+        placeholder={getPlaceholderValue()}
+        disabled={getDisabledValue()}
+        status={getStatus()}
+        onChange={(value: number) => setValue(value)}
+      />
+    </>
+  );
+};
+export const TextField = () => {
+  const [value, setValue] = React.useState("");
+  return (
+    <>
+      <h3>Text Field</h3>
+      <Textarea
+        value={value}
+        placeholder={getPlaceholderValue()}
+        rows={getTextareaRows()}
+        disabled={getDisabledValue()}
+        resize={getResizeValue()}
+        autoHeight={getAutoHeightValue()}
+        status={getStatus()}
+        onChange={(value: string) => setValue(value)}
+      />
+    </>
+  );
+};
 
+export const InputCheckbox = () => {
+  const [isChecked, setIsChecked] = React.useState(false);
+  return (
+    <>
+      <h3>Checkbox</h3>
+      <Checkbox
+        checked={isChecked}
+        disabled={getDisabledValue()}
+        label={getLabelValue()}
+        onChange={setIsChecked}
+      />
+    </>
+  );
+};
 
-export const InputCheckbox = () => (
-  <>
-    <h3>Checkbox</h3>
-    <Checkbox
-      checked={false}
-      disabled={getDisabledValue()}
-      label={getLabelValue()}
-      onChange={onChange}
-    />
-  </>
-);
+export const InputRadioButton = () => {
+  const [isChecked, setIsChecked] = React.useState(false);
+  return (
+    <>
+      <h3>Radio Button</h3>
+      <RadioButton
+        checked={isChecked}
+        disabled={getDisabledValue()}
+        label={getLabelValue()}
+        onChange={setIsChecked}
+      />
+    </>
+  );
+};
 
-export const InputRadioButton = () => (
-  <>
-    <h3>Radio Button</h3>
-    <RadioButton
-      checked={false}
-      disabled={getDisabledValue()}
-      label={getLabelValue()}
-      onChange={onChange}
-    />
-  </>
-);
+export const FormExample = () => {
+  return (
+    <>
+      <h3>Form</h3>
+      <Form onSubmit={(result) => console.log(result)}>
+        <Input
+          type="text"
+          value=""
+          name="firstName"
+          placeholder="Vorname"
+          onChange={() => void 0}
+        />
+        <Input
+          type="text"
+          value=""
+          name="lastName"
+          placeholder="Nachname"
+          onChange={() => void 0}
+          required={true}
+        />
+        <Checkbox
+          name="contactMe"
+          label="Ich möchte kontaktiert werden"
+          onChange={() => void 0}
+        />
+      </Form>
+    </>
+  );
+};

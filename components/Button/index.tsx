@@ -4,15 +4,28 @@ import classNames from "classnames";
 
 interface Props {
   text: string;
-  type?: "primary" | "secondary" | "link";
+  type?: "primary" | "secondary" | "link" | "submit";
   size?: "medium" | "large";
   disabled?: boolean;
 }
 
-const Button: React.FC<Props> = ({ text, type = "primary", size = "medium", disabled = false }) => {
+const Button: React.FC<Props> = ({
+  text,
+  type = "primary",
+  size = "medium",
+  disabled = false,
+}) => {
   return (
     <>
-      <button className={classNames("Button", "type-" + type, "size-" + size)} disabled={disabled}>
+      <button
+        type={type === "submit" ? "submit" : "button"}
+        className={classNames(
+          "Button",
+          "type-" + (type === "submit" ? "primary" : type),
+          "size-" + size
+        )}
+        disabled={disabled}
+      >
         {text}
       </button>
       <style jsx>{`
