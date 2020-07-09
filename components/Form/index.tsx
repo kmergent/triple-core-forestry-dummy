@@ -44,7 +44,6 @@ const Form: React.FC<Props<any>> = ({ children, onSubmit }) => {
       const {name, value} = (formField as JSX.Element).props;
       initialValues[name || getDefaultName(index)] = value;
     });
-    console.log(initialValues);
     updateValues(initialValues);
   }, [children]);
 

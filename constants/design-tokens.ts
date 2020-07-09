@@ -14,3 +14,7 @@ export const Colors = {
     inactive: '#BFBFBF',
     success: '#99A637'
 }
+
+export const Spacing = {
+    small: '0.5em'
+}
