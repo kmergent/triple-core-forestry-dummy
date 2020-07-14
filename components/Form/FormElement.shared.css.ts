@@ -1,4 +1,4 @@
-import { Colors } from "../../constants/design-tokens";
+import { Colors, Spacing } from "../../constants/design-tokens";
 
 export const formElementFont = `
   font-family: inherit;
@@ -50,6 +50,7 @@ export const FormElementBoxStyles = `
     background: transparent;
   }
 `;
+export const baseInset = `0 ${Spacing.small}`;
 
 export const FormElementInputStyles = `
   .Textarea, .Input {
@@ -57,15 +58,23 @@ export const FormElementInputStyles = `
     ${formElementFont}
     ${formElementWidth}
 
-    padding: 6px ${status ? "calc(1.1rem + 12px)" : "7px"} 4px 7px;
+    min-height: 2rem;
+
+    padding: ${baseInset};
+  
     box-sizing: border-box;
     
-    border-width: 0 0 2px 0;
-    border-style: solid;
-    border-color: ${Colors.primary.default};
+    border: 2px solid transparent;
+    border-bottom-color: ${Colors.primary.default};
     background: transparent;
     caret-color: ${Colors.primary.default};
   }
+
+  .Textarea.status, 
+  .Input.status {
+    padding-right: calc(1.725rem + ${baseInset});
+  }
+
   .Textarea::placeholder,
   .Input::placeholder {
     font-weight: 400;
@@ -75,10 +84,16 @@ export const FormElementInputStyles = `
   .Textarea:focus,
   .Input:focus {
     outline: 0;
-    border-width: 2px;
-    padding: 4px ${status ? "calc(1.1rem + 10px)" : "7px"} 4px 5px;
+
+    border-color: ${Colors.primary.default};
     background: ${Colors.lightBackground};
   }
+
+  .Textarea.status:focus, 
+  .Input.status:focus {
+    padding-right: 1.725rem;
+  }
+
   .Textarea:disabled,
   .Input:disabled {
     cursor: default;

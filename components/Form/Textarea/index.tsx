@@ -23,14 +23,11 @@ const Textarea: React.FC<Props> = ({
   value,
   onChange,
   status,
-  name = "",
-  placeholder = "",
   rows = 3,
-  disabled = false,
   resize = true,
-  required = false,
   maxLength = 140,
   autoHeight = false,
+  ...props
 }) => {
 
   let textareaRef: HTMLTextAreaElement | null;
@@ -54,15 +51,14 @@ const Textarea: React.FC<Props> = ({
         className={classNames(
           "Textarea",
           resize ? "" : "disabled-resize",
-          autoHeight ? "autoHeight" : ""
+          autoHeight ? "autoHeight" : "",
+          status ? "status" : ""
         )}
         value={value}
-        placeholder={placeholder}
         onChange={handleChange}
         rows={autoHeight ? 1 : rows}
-        disabled={disabled}
         maxLength={maxLength}
-        required={required}
+        {...props}
       />
       {status ? (
         <span className="Textarea-Icon">

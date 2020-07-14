@@ -3,6 +3,7 @@ import { InputStatus } from "../FormElement.model";
 import Icon from "../../Icon";
 import { Colors } from "../../../constants/design-tokens";
 import { FormElementInputStyles } from "../FormElement.shared.css";
+import classNames from "classnames";
 
 
 interface Props {
@@ -18,15 +19,10 @@ interface Props {
 }
 
 const Input: React.FC<Props> = ({
-  type,
-  value,
   onChange,
   status,
-  name = "",
-  placeholder = "",
-  required = false,
-  disabled = false,
-  maxLength = 50
+  maxLength = 50,
+  ...props
 }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -38,14 +34,10 @@ const Input: React.FC<Props> = ({
   return (
     <>
       <input
-        className={"Input"}
-        type={type}
-        value={value}
-        placeholder={placeholder}
+        className={classNames("Input", status ? "status" : "")}
         onChange={handleChange}
-        disabled={disabled}
         maxLength={maxLength}
-        required={required}
+        {...props}
       />
       {status ? (
         <span className="Input-Icon">

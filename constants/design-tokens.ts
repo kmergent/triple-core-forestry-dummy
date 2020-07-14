@@ -16,5 +16,7 @@ export const Colors = {
 }
 
 export const Spacing = {
-    small: '0.5em'
+    small: '0.5rem',
+    medium: '1rem',
+    large: '1.5rem'
 }

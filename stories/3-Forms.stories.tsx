@@ -13,6 +13,7 @@ import Checkbox from "../components/Form/Checkbox";
 import RadioButton from "../components/Form/RadioButton";
 import { InputStatus } from "../components/Form/FormElement.model";
 import Form from "../components/Form";
+import Dropdown from "../components/Form/Dropdown";
 
 export default {
   component: Input,
@@ -125,6 +126,29 @@ export const InputRadioButton = () => {
         disabled={getDisabledValue()}
         label={getLabelValue()}
         onChange={setIsChecked}
+      />
+    </>
+  );
+};
+
+export const SelectDropdown = () => {
+  const [value, setValue] = React.useState("");
+
+  const options = [
+    { label: "Option 1", value: "option_1" },
+    { label: "Option 2", value: "option_2" },
+    { label: "Option 3", value: "option_3" },
+  ]
+
+  return (
+    <>
+      <h3>Dropdown</h3>
+      <Dropdown
+        value={value}
+        placeholder={getPlaceholderValue()}
+        disabled={getDisabledValue()}
+        options={options}
+        onChange={setValue}
       />
     </>
   );

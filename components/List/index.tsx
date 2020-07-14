@@ -90,7 +90,22 @@ const List: React.FC<Props> = ({ children, type = ListStyle.DEFAULT }) => {
             border-bottom: 0;
         }
 
-        .List.type-${ListStyle.BOX} .active {
+        .List.type-${ListStyle.BOX} .Button {
+            padding: 0;
+            color: ${Colors.text};
+            font-weight: normal;
+            width: 100%;
+            text-align: left;
+        }
+
+        .List.type-${ListStyle.BOX} .Button:hover,
+        .List.type-${ListStyle.BOX} .Button:focus {
+            color: ${Colors.primary.default};
+            box-shadow: none;
+        }
+
+        .List.type-${ListStyle.BOX} .active,
+        .List.type-${ListStyle.BOX} .active .Button {
             font-weight: 800;
         }
 
@@ -103,6 +118,7 @@ const List: React.FC<Props> = ({ children, type = ListStyle.DEFAULT }) => {
             height: 100%;
             background: ${Colors.primary.active}
         }
+        
       `}</style>
     </>
   );
