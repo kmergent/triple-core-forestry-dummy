@@ -107,7 +107,7 @@ export const InputCheckbox = () => {
     <>
       <h3>Checkbox</h3>
       <Checkbox
-        checked={isChecked}
+        value={isChecked}
         disabled={getDisabledValue()}
         label={getLabelValue()}
         onChange={setIsChecked}
@@ -122,7 +122,7 @@ export const InputRadioButton = () => {
     <>
       <h3>Radio Button</h3>
       <RadioButton
-        checked={isChecked}
+        value={isChecked}
         disabled={getDisabledValue()}
         label={getLabelValue()}
         onChange={setIsChecked}
@@ -148,7 +148,7 @@ export const SelectDropdown = () => {
         placeholder={getPlaceholderValue()}
         disabled={getDisabledValue()}
         options={options}
-        onChange={setValue}
+        onChange={(value: string) => setValue(value)}
       />
     </>
   );
@@ -174,10 +174,18 @@ export const FormExample = () => {
           onChange={() => void 0}
           required={true}
         />
+        <Dropdown
+          value=""
+          placeholder="Option"
+          options={[{label: 'Option A'}, {label: 'Option B'}]}
+          onChange={() => void 0}
+        />
         <Checkbox
+          value={false}
           name="contactMe"
           label="Ich möchte kontaktiert werden"
           onChange={() => void 0}
+          required={true}
         />
       </Form>
     </>

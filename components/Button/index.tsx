@@ -15,7 +15,6 @@ const Button: React.FC<Props> = ({
   text,
   type = "primary",
   size = "medium",
-  disabled = false,
   ...props
 }) => {
   return (

@@ -33,7 +33,7 @@ const Textarea: React.FC<Props> = ({
   let textareaRef: HTMLTextAreaElement | null;
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     const updatedValue = e.currentTarget.value;
-    onChange(updatedValue, name);
+    onChange(updatedValue, props.name);
   };
 
 

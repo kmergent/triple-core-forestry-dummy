@@ -27,7 +27,7 @@ const Input: React.FC<Props> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const updatedValue = e.currentTarget.value;
-    onChange(updatedValue, name);
+    onChange(updatedValue, props.name);
   };
 
 

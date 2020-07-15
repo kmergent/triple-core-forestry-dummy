@@ -4,7 +4,7 @@ import { FormElementBoxStyles } from "../FormElement.shared.css";
 import classNames from "classnames";
 
 interface Props {
-  checked: boolean;
+  value: boolean;
   label?: string;
   name?: string;
   disabled?: boolean;
@@ -13,17 +13,16 @@ interface Props {
 }
 
 const RadioButton: React.FC<Props> = ({
-  checked,
+  value,
   label = "",
-  name = "",
   disabled = false,
-  required = false,
   onChange,
+  ...props
 }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const updatedValue = e.currentTarget.checked;
-    onChange(updatedValue, name);
+    onChange(updatedValue, props.name);
   };
 
   return (
@@ -31,7 +30,7 @@ const RadioButton: React.FC<Props> = ({
       className={classNames(
         "RadioButton",
         disabled ? "RadioButton--disabled" : "",
-        checked ? "RadioButton--selected" : ""
+        value ? "RadioButton--selected" : ""
       )}
     >
       <span className="RadioButton-box"></span>
@@ -40,7 +39,8 @@ const RadioButton: React.FC<Props> = ({
         type="radio"
         onChange={handleChange}
         disabled={disabled}
-        checked={checked}
+        checked={value}
+        {...props}
       />
       <style jsx>{`
         ${FormElementBoxStyles}

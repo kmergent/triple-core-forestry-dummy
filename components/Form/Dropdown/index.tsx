@@ -11,7 +11,7 @@ export interface DropdownOption {
 }
 
 interface Props {
-  value?: string;
+  value?: string | number;
   options?: DropdownOption[];
   name?: string;
   placeholder?: string;
@@ -35,6 +35,14 @@ const Dropdown: React.FC<Props> = ({
   const defaultOption = { label: "" };
   const ref = React.useRef<HTMLDivElement>(null);
 
+  const documentClickHandler = (event: any) => {
+    // Do nothing if clicking ref's element or descendent elements
+    if (!ref.current || ref.current.contains(event.target)) {
+      return;
+    }
+    setIsOpen(false);
+  };
+
   React.useEffect(() => {
     const updatedSelectedOption =
       options.find((option) => option.value === value) ||
@@ -43,29 +51,25 @@ const Dropdown: React.FC<Props> = ({
     setSelectedOption(updatedSelectedOption);
   }, [value]);
 
-  const useOnClickOutside = (ref: any, handler: any) => {
-    React.useEffect(
-      () => {
-        const listener = (event: any) => {
-          // Do nothing if clicking ref's element or descendent elements
-          if (!ref.current || ref.current.contains(event.target)) {
-            return;
-          }
-          handler(event);
-        };
-  
-        document.addEventListener('mousedown', listener);
-  
-        return () => {
-          document.removeEventListener('mousedown', listener);
-        };
-      },
-      [ref, handler]
-    );
-  };
+  React.useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", documentClickHandler);
+      return () => {
+        document.removeEventListener("mousedown", documentClickHandler);
+      };
+    } else {
+      return () => {};
+    }
+  }, [ref, isOpen]);
 
   const toggleIsOpen = (): void => {
     setIsOpen(!isOpen);
+  };
+
+  const handleChange = (value: string | number): void => {
+    console.log(name);
+    setIsOpen(false);
+    onChange(value, name);
   };
 
   const renderSelect = (): JSX.Element => {
@@ -73,7 +77,7 @@ const Dropdown: React.FC<Props> = ({
       <select
         disabled={disabled}
         onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-          onChange(e.currentTarget.value, name)
+          handleChange(e.currentTarget.value)
         }
         value={value}
       >
@@ -90,8 +94,8 @@ const Dropdown: React.FC<Props> = ({
           </option>
         ))}
       </select>
-    )
-  }
+    );
+  };
 
   const renderDropdownOptions = (): JSX.Element => {
     return (
@@ -101,21 +105,22 @@ const Dropdown: React.FC<Props> = ({
             key={option.value || index}
             className={classNames(
               "Dropdown-option",
-              option.value === value ? "active" : ""
+              (option.value && option.value === value) ||
+                (!option.value && index === value)
+                ? "active"
+                : ""
             )}
           >
             <Button
               text={option.label}
               type="link"
-              onClick={() => onChange(option.value || index, name)}
+              onClick={() => handleChange(option.value || index)}
             />
           </div>
         ))}
       </List>
     );
   };
-
-  useOnClickOutside(ref, () => setIsOpen(false));
 
   return (
     <>
@@ -127,7 +132,13 @@ const Dropdown: React.FC<Props> = ({
           disabled={disabled}
           onClick={toggleIsOpen}
         />
-        <span className={classNames("Dropdown-arrow", isOpen ? "open" : "")}></span>
+        <span
+          className={classNames(
+            "Dropdown-arrow",
+            isOpen ? "open" : "",
+            disabled ? "disabled" : ""
+          )}
+        ></span>
         {isOpen ? renderDropdownOptions() : ""}
       </div>
       <style jsx>{`
@@ -157,6 +168,10 @@ const Dropdown: React.FC<Props> = ({
           border-bottom: 0.5rem solid ${Colors.text};
         }
 
+        .Dropdown-arrow.disabled {
+          border-top-color: ${Colors.inactive};
+        }
+
         .Dropdown .List.type-2 {
           position: absolute;
           top: calc(100% - 0.3rem);
@@ -164,6 +179,7 @@ const Dropdown: React.FC<Props> = ({
           right: ${Spacing.medium};
           border-color: ${Colors.primary.default};
           background: ${Colors.lightBackground};
+          z-index: 100;
         }
       `}</style>
     </>

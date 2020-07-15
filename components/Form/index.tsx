@@ -30,6 +30,7 @@ const Form: React.FC<Props<any>> = ({ children, onSubmit }) => {
           return React.cloneElement(formField, {
             ...formField.props,
             value: values[formField.props.name || getDefaultName(index)],
+            name: formField.props.name || getDefaultName(index),
             onChange: handleChange,
           });
       } else {
@@ -40,7 +41,6 @@ const Form: React.FC<Props<any>> = ({ children, onSubmit }) => {
   React.useEffect(() => {
     const initialValues = {};
     React.Children.forEach(children, (formField, index) => {
-        console.log(formField);
       const {name, value} = (formField as JSX.Element).props;
       initialValues[name || getDefaultName(index)] = value;
     });
