@@ -1,4 +1,12 @@
 ---
 label: Content Area
 hide_body: false
-fields: []
+fields:
+- name: title
+  type: text
+  config:
+    required: false
+  label: Titel
+  description: Titel der Seite
+pages:
+- content/posts/das-ist-ein-test-beitrag.mdx

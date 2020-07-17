@@ -24,5 +24,3 @@ fields:
     schema:
       format: markdown
   label: Text area
-pages:
-- content/posts/das-ist-ein-test-beitrag.mdx
