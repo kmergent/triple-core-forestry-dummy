@@ -1,4 +1,26 @@
 ---
 label: Fields
 hide_body: true
-fields: []
+fields:
+- name: title
+  type: text
+  config:
+    required: false
+  label: Titel
+  description: Der Titel der Seite oder des Beitrags
+- name: blocks
+  type: blocks
+  label: Building Blocks
+  template_types: []
+  config:
+    min: 
+    max: 
+- name: text_area
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: false
+    schema:
+      format: markdown
+  label: Text area
